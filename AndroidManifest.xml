@@ -1,0 +1,101 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.toraysoft.libs.igetui_sdk"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application>
+        
+        <!-- Getui SDK config -->
+        
+        <!-- 
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="vItfdy5ebGAgry6hKVBc61" />
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="a93NimV6dX5DU4J1KPjSc4" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="nMoKKSQLFQ8Lv6X6FsDpX6" />
+        <meta-data
+            android:name="PUSH_GROUPID"
+            android:value="" />
+
+        <receiver android:name="com.igexin.push.GetuiMsgReceiver" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.a93NimV6dX5DU4J1KPjSc4" />
+            </intent-filter>
+        </receiver>
+ 		-->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice" >
+        </service>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.igexin.getuiext.activity.GetuiExtActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="android.task.myServicetask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 
+        <receiver
+            android:name="com.igexin.getuiext.service.PayloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
+                <action android:name="com.igexin.sdk.action.a93NimV6dX5DU4J1KPjSc4" />
+            </intent-filter>
+        </receiver> -->
+
+        <service
+            android:name="com.igexin.getuiext.service.GetuiExtService"
+            android:process=":pushservice" />
+        <service
+            android:name="com.igexin.download.DownloadService"
+            android:process=":pushservice" />
+
+        <receiver
+            android:name="com.igexin.download.DownloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 
+        <provider
+            android:name="com.igexin.download.DownloadProvider"
+            android:authorities="downloads.net.tr.phiz"
+            android:process=":pushservice" />
+         -->
+    </application>
+
+</manifest>
