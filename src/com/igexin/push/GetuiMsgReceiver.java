@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.igexin.sdk.PushConsts;
+import com.igexin.sdk.PushManager;
 
 
 
@@ -16,44 +17,48 @@ public class GetuiMsgReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
+		Log.d("GetuiSdkDemo", "onReceive() action=" + bundle.getInt("action"));
 		switch (bundle.getInt(PushConsts.CMD_ACTION)) {
+
 		case PushConsts.GET_MSG_DATA:
-			// 获取透传（payload）数据
+			// 获取透传数据
+			// String appid = bundle.getString("appid");
 			byte[] payload = bundle.getByteArray("payload");
+			
+			String taskid = bundle.getString("taskid");
+			String messageid = bundle.getString("messageid");
+
+			// smartPush第三方回执调用接口，actionid范围为90000-90999，可根据业务场景执行
+			boolean result = PushManager.getInstance().sendFeedbackMessage(context, taskid, messageid, 90001);
+			System.out.println("第三方回执接口调用" + (result ? "成功" : "失败"));
+			
 			if (payload != null) {
 				String data = new String(payload);
-				Log.d(TAG, "Got Payload:" + data);
-				// TODO:接收处理透传（payload）数据
+
+				Log.d("GetuiSdkDemo", "Got Payload:" + data);
 				if(GetuiSDK.getInstance().mGetuiListener!=null)
 					GetuiSDK.getInstance().mGetuiListener.processMessage(data);
 			}
 			break;
 		case PushConsts.GET_CLIENTID:
 			// 获取ClientID(CID)
+			// 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
 			String cid = bundle.getString("clientid");
-			Log.d(TAG, "Got ClientID:" + cid);
 			if(GetuiSDK.getInstance().mGetuiListener!=null)
 				GetuiSDK.getInstance().mGetuiListener.resClientid(cid);
-			// TODO:
-			/*
-			 * 第三方应用需要将ClientID 上传到第三方服务器，并且将当前用户帐号和 ClientID
-			 * 进行关联，以便以后通过用户帐号查找ClientID 进行消息推送 有些情况下ClientID
-			 * 可能会发生变化，为保证获取最新的ClientID，请应用程序 在每次获取ClientID 广播后，都能进行一次关联绑定
-			 */
 			break;
 		case PushConsts.THIRDPART_FEEDBACK:
-			// sendMessage接口调用回执
-			String appid = bundle.getString("appid");
+			/*String appid = bundle.getString("appid");
 			String taskid = bundle.getString("taskid");
 			String actionid = bundle.getString("actionid");
 			String result = bundle.getString("result");
 			long timestamp = bundle.getLong("timestamp");
 
-			Log.d(TAG, "appid:" + appid);
-			Log.d(TAG, "taskid:" + taskid);
-			Log.d(TAG, "actionid:" + actionid);
-			Log.d(TAG, "result:" + result);
-			Log.d(TAG, "timestamp:" + timestamp);
+			Log.d("GetuiSdkDemo", "appid = " + appid);
+			Log.d("GetuiSdkDemo", "taskid = " + taskid);
+			Log.d("GetuiSdkDemo", "actionid = " + actionid);
+			Log.d("GetuiSdkDemo", "result = " + result);
+			Log.d("GetuiSdkDemo", "timestamp = " + timestamp);*/
 			break;
 		default:
 			break;
