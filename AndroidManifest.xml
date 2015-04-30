@@ -2,26 +2,26 @@
     package="com.toraysoft.libs.igetui_sdk"
     android:versionCode="1"
     android:versionName="1.0" >
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-sdk
-        android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="8" />
 
     <application>
-        
+
         <!-- Getui SDK config -->
-        
-        <!-- 
+
+
+        <!--
         <meta-data
             android:name="PUSH_APPKEY"
             android:value="vItfdy5ebGAgry6hKVBc61" />
@@ -40,7 +40,7 @@
                 <action android:name="com.igexin.sdk.action.a93NimV6dX5DU4J1KPjSc4" />
             </intent-filter>
         </receiver>
- 		-->
+        -->
         <service
             android:name="com.igexin.sdk.PushService"
             android:exported="true"
@@ -57,13 +57,12 @@
             </intent-filter>
         </receiver>
         <receiver
-        	android:name="com.igexin.sdk.PushManagerReceiver"
-        	android:exported="false" >
-        	<intent-filter>
-            	<action android:name="com.igexin.sdk.action.pushmanager" />
-       	 	</intent-filter>
-		</receiver>
-        
+            android:name="com.igexin.sdk.PushManagerReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name="com.igexin.sdk.PushActivity"
@@ -82,7 +81,7 @@
             android:taskAffinity="android.task.myServicetask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <!-- 
+        <!--
         <receiver
             android:name="com.igexin.getuiext.service.PayloadReceiver"
             android:exported="false" >
@@ -90,7 +89,8 @@
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <action android:name="com.igexin.sdk.action.a93NimV6dX5DU4J1KPjSc4" />
             </intent-filter>
-        </receiver> -->
+        </receiver>
+        -->
 
         <service
             android:name="com.igexin.getuiext.service.GetuiExtService"
@@ -107,12 +107,12 @@
             </intent-filter>
         </receiver>
 
-        <!-- 
+        <!--
         <provider
             android:name="com.igexin.download.DownloadProvider"
             android:authorities="downloads.net.tr.phiz"
             android:process=":pushservice" />
-         -->
+        -->
     </application>
 
 </manifest>
